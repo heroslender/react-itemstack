@@ -37,6 +37,10 @@ module.exports = {
                 "style-loader",
                 "css-loader"
             ]
+        },
+        {
+            test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/,
+            loader: 'file-loader'
         }]
     }
 }

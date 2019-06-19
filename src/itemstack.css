@@ -1,6 +1,6 @@
 @font-face {
   font-family: Minecraftia;
-  src: url(/assets/Minecraftia-Regular.ttf);
+  src: url(./Minecraftia-Regular.ttf);
 }
 .item-display {
   display: inline-block;
