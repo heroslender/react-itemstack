@@ -9,7 +9,8 @@ export default class ItemStack extends React.Component {
 			minecraftID: props.id.split(':')[1],
 			name: props.id.split(':')[1].replace('_', ' ').replace(/(?:^|\s)\S/g, function(a) {
 				return a.toUpperCase();
-			})
+			}),
+			lore: props.lore || ''
 		};
 
 		this.itemInfoRef = React.createRef();
@@ -39,7 +40,7 @@ export default class ItemStack extends React.Component {
 				</div>
 				<div className="item-info" ref={this.itemInfoRef}>
 					<div className="item-meta name">{this.state.name}</div>
-					{this.props.lore.split('\\n').map((line, i) => (
+					{this.state.lore.split('\\n').map((line, i) => (
 						<div key={i} className="item-meta lore">
 							{line}
 						</div>
