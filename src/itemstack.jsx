@@ -39,6 +39,11 @@ export default class ItemStack extends React.Component {
 				</div>
 				<div className="item-info" ref={this.itemInfoRef}>
 					<div className="item-meta name">{this.state.name}</div>
+					{this.props.lore.split('\\n').map((line, i) => (
+						<div key={i} className="item-meta lore">
+							{line}
+						</div>
+					))}
 					{this.props.children}
 				</div>
 			</div>
