@@ -1,54 +1,60 @@
-import React from 'react';
-import './itemstack.css';
+import React from "react";
 
-export default class ItemStack extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			id: props.id,
-			minecraftID: props.id.split(':')[1],
-			name: props.id.split(':')[1].replace('_', ' ').replace(/(?:^|\s)\S/g, function(a) {
-				return a.toUpperCase();
-			}),
-			lore: props.lore || ''
-		};
+import { GlobalStyle, Container, Icon, Info, Meta } from "./styles";
 
-		this.itemInfoRef = React.createRef();
-	}
+export default function ItemStack({ id, amount, lore = "", children }) {
+  const itemInfoReference = React.createRef();
 
-	onMouseEnter() {
-		window.CurrentHoverElement = this.itemInfoRef.current;
-	}
+  let minecraftId = "";
+  let name = "";
 
-	onMouseLeave() {
-		window.CurrentHoverElement = undefined;
-	}
+  if (id !== null) {
+    minecraftId = id.split(":")[1];
+    name = id
+      .split(":")[1]
+      .replace("_", " ")
+      .replace(/(?:^|\s)\S/g, function(s) {
+        return s.toUpperCase();
+      });
+  }
 
-	render() {
-		return (
-			<div
-				className="item-display"
-				onMouseEnter={() => this.onMouseEnter()}
-				onMouseLeave={() => this.onMouseLeave()}
-			>
-				<div className="icon">
-					<img
-						src={`https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.14/assets/minecraft/textures/item/${this
-							.state.minecraftID}.png`}
-						alt={this.state.name}
-					/>
-				</div>
-				<div className="item-info" ref={this.itemInfoRef}>
-					<div className="item-meta name">{this.state.name}</div>
-					{this.state.lore.split('\\n').map((line, i) => (
-						<div key={i} className="item-meta lore">
-							{line}
-						</div>
-					))}
-					{this.props.children}
-				</div>
-			</div>
-		);
-		this.props.children;
-	}
+  function onMouseMove(event) {
+    const itemInfoReferenceStyle = itemInfoReference.current.style;
+
+    itemInfoReferenceStyle.top = event.pageY - window.scrollY + "px";
+    itemInfoReferenceStyle.left = event.pageX + 15 + "px";
+  }
+
+  return (
+    <>
+      <GlobalStyle />
+      <Container onMouseMove={onMouseMove}>
+        {/* Minecraft Item Icon */}
+        <Icon>
+          <img
+            src={`https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.14/assets/minecraft/textures/item/${minecraftId}.png`}
+            alt={name}
+          />
+        </Icon>
+
+        {/* Amount */}
+        <Meta className="amount">{amount}</Meta>
+
+        <Info ref={itemInfoReference}>
+          {/* Display Name */}
+          <Meta className="name">{name}</Meta>
+
+          {/* Enchantments */}
+          {children}
+
+          {/* Lore */}
+          {lore.split("\\n").map((line, i) => (
+            <Meta key={i} className="lore">
+              {line}
+            </Meta>
+          ))}
+        </Info>
+      </Container>
+    </>
+  );
 }

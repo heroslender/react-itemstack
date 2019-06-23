@@ -2,8 +2,9 @@
   "name": "react-itemstack",
   "version": "1.0.0",
   "description": "A react component to display a minecraft item",
+  "main": "./src",
   "scripts": {
-    "predeploy": "npm run production",
+    "predeploy": "yarn production",
     "deploy": "gh-pages -d public",
     "dev": "webpack-dev-server --progress --colors --inline --hot",
     "production": "webpack --progress -p"
@@ -44,5 +45,8 @@
     "webpack": "^4.34.0",
     "webpack-cli": "^3.3.4",
     "webpack-dev-server": "^3.7.1"
+  },
+  "dependencies": {
+    "styled-components": "^4.3.2"
   }
 }
