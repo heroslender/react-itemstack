@@ -51,17 +51,6 @@ export class EnchantmentType {
     
     return e
   }
-
-  static parse(source) {
-    /** @type Enchantment */
-    const e = enchantments[source.id]
-    if (e) {
-      const newEnchant = e.clone()
-      newEnchant.setLevel(source.lvl)
-      return newEnchant
-    }
-    return undefined
-  }
 }
 
 const enchantments = {
